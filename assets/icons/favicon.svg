@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Agroly Lanka">
+  <rect width="64" height="64" rx="16" fill="#1B5E3C"/>
+  <g fill="none" stroke="#8DBF5A" stroke-width="3.4" stroke-linecap="round">
+    <path d="M32 52V22"/>
+    <path d="M32 34c-9 0-14-5-14-13 8 0 14 5 14 13Z" fill="#4F8A4C" stroke="#8DBF5A"/>
+    <path d="M32 42c9 0 14-5 14-13-8 0-14 5-14 13Z" fill="#8DBF5A" stroke="#8DBF5A"/>
+  </g>
+</svg>

@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Agroly Lanka — Components
+   Reusable pieces: buttons, eyebrows, header, footer, cards, organic shapes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   EYEBROW — small lead-in label above headings
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--clr-accent-text);
+  margin-bottom: var(--sp-4);
+}
+.eyebrow::before {
+  content: "";
+  inline-size: var(--sp-7);
+  block-size: 2px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--c-clay), transparent);
+}
+.eyebrow--inverse { color: var(--c-sprout); }
+.eyebrow--inverse::before { background: linear-gradient(90deg, var(--c-sprout), transparent); }
+.eyebrow--center { justify-content: center; }
+
+/* --------------------------------------------------------------------------
+   BUTTONS — pill, always
+   -------------------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--clr-primary);
+  --btn-fg: var(--clr-text-inverse);
+  --btn-bd: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-7);
+  border: 1.5px solid var(--btn-bd);
+  border-radius: var(--r-pill);
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform var(--dur-base) var(--ease-back),
+    box-shadow var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.btn:active { transform: translateY(0); }
+
+.btn__icon {
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  flex: none;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.btn:hover .btn__icon--arrow { transform: translateX(3px); }
+
+.btn--primary { --btn-bg: var(--clr-primary); --btn-fg: var(--clr-text-inverse); }
+.btn--primary:hover { --btn-bg: var(--clr-primary-hover); }
+
+.btn--whatsapp { --btn-bg: var(--c-leaf); --btn-fg: var(--clr-text-inverse); }
+.btn--whatsapp:hover { --btn-bg: var(--c-forest); box-shadow: var(--sh-lg); }
+
+.btn--clay { --btn-bg: var(--c-clay); --btn-fg: var(--c-bark); }
+.btn--clay:hover { --btn-bg: var(--c-clay-light); box-shadow: var(--sh-warm); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--clr-text);
+  --btn-bd: var(--clr-border-warm);
+}
+.btn--ghost:hover { --btn-bg: var(--c-sand-pale); --btn-bd: var(--c-clay); }
+
+.btn--ghost-inverse {
+  --btn-bg: transparent;
+  --btn-fg: var(--clr-text-inverse);
+  --btn-bd: var(--clr-border-inverse);
+}
+.btn--ghost-inverse:hover {
+  --btn-bg: var(--a-paper-10);
+  --btn-bd: var(--c-sprout);
+}
+
+.btn--sm { padding: var(--sp-3) var(--sp-5); font-size: var(--fs-2xs); }
+.btn--lg { padding: var(--sp-5) var(--sp-7); font-size: var(--fs-base); }
+
+/* Text link with a hand-drawn underline that grows on hover */
+.link-underline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: var(--fw-semibold);
+  color: var(--clr-accent-text);
+  padding-bottom: var(--sp-1);
+  background-image: linear-gradient(90deg, currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1.5px;
+  transition: background-size var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.link-underline:hover { background-size: 100% 3px; color: var(--clr-primary); }
+
+/* --------------------------------------------------------------------------
+   ORGANIC SHAPES — arch frames, blobs, hand-drawn details
+   -------------------------------------------------------------------------- */
+.arch {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-arch);
+  background-color: var(--c-sand-pale);
+}
+.arch--soft { border-radius: var(--r-arch-soft); }
+.arch--inverted { border-radius: var(--r-lg) var(--r-lg) 12rem 12rem / var(--r-lg) var(--r-lg) 14rem 14rem; }
+.arch > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+.blob {
+  border-radius: var(--r-blob-a);
+  overflow: hidden;
+  background-color: var(--c-sand-pale);
+}
+.blob--b { border-radius: var(--r-blob-b); }
+.blob > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* Slow ambient drift for decorative shapes */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(0, -1.25rem, 0) rotate(1.6deg); }
+}
+@keyframes morph {
+  0%, 100% { border-radius: var(--r-blob-a); }
+  50%      { border-radius: var(--r-blob-b); }
+}
+.is-drifting {
+  animation: drift 14s var(--ease-soft) infinite;
+  will-change: transform;
+}
+/* Radius morphing repaints the whole element, so keep it off blurred layers */
+.is-morphing { animation: morph 18s var(--ease-soft) infinite; }
+
+/* Decorative watercolour wash.
+   Blurred layers are expensive to re-rasterise, so these only ever move by
+   transform — never by border-radius or filter. */
+.wash {
+  position: absolute;
+  border-radius: var(--r-blob-a);
+  filter: blur(60px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: var(--z-below);
+  transform: translateZ(0);
+}
+.wash.is-drifting { animation-duration: 22s; }
+.wash--sage   { background-color: var(--c-sprout-pale); }
+.wash--sprout { background-color: var(--c-sprout); }
+.wash--clay   { background-color: var(--c-clay-light); }
+.wash--sand   { background-color: var(--c-sand); }
+.wash--forest { background-color: var(--c-forest-soft); }
+
+/* --------------------------------------------------------------------------
+   WAVE DIVIDERS — curved edges between sections
+   -------------------------------------------------------------------------- */
+/* Every path is authored to fill *downward* from its curve, which is what a
+   bottom divider needs. A top divider is the same shape flipped in Y, so the
+   colour lands above the curve instead of below it. */
+.wave {
+  position: absolute;
+  inset-inline: 0;
+  inline-size: 100%;
+  block-size: clamp(3rem, 6vw, 7rem);
+  display: block;
+  pointer-events: none;
+  z-index: var(--z-wave);
+}
+.wave--top    { inset-block-start: -1px; transform: scaleY(-1); }
+.wave--bottom { inset-block-end: -1px; }
+.wave--flip   { transform: scaleX(-1); }
+.wave--top.wave--flip { transform: scale(-1, -1); }
+
+/* The path inherits colour, so the divider is set by a token, not an SVG attr.
+   Each wave is painted in the colour of the section it hands over to. */
+.wave path    { fill: currentColor; }
+.wave--paper  { color: var(--clr-bg); }
+.wave--sand   { color: var(--c-sand-light); }
+.wave--warm   { color: var(--c-paper-warm); }
+.wave--forest { color: var(--c-forest-deep); }
+
+/* --------------------------------------------------------------------------
+   HEADER
+   -------------------------------------------------------------------------- */
+.header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-header);
+  transition:
+    background-color var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out),
+    padding var(--dur-slow) var(--ease-out);
+  padding-block: var(--sp-4);
+}
+.header.is-stuck {
+  background-color: var(--a-paper-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--sh-sm);
+  padding-block: var(--sp-3);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+}
+
+/* Logo placeholder — swap the inner markup for the real logo file */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: none;
+}
+.logo__slot {
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--r-circle);
+  border: 1.5px dashed var(--c-clay);
+  background-color: var(--c-sand-pale);
+  color: var(--clr-accent-text);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  flex: none;
+}
+.logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.logo__name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--font-display-soft);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--clr-primary);
+  text-transform: lowercase;
+}
+.logo__tagline {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.header:not(.is-stuck) .logo__name { color: var(--clr-primary); }
+
+/* Primary navigation */
+.nav { display: flex; align-items: center; gap: var(--sp-6); }
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  white-space: nowrap;
+}
+@media (min-width: 90rem) {
+  .nav__list { gap: var(--sp-5); }
+  .nav__link { font-size: var(--fs-sm); }
+}
+/* Seven items with long labels — sized down so the row never wraps.
+   Steps up once there is genuinely room for it. */
+.nav__link {
+  position: relative;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semibold);
+  color: var(--clr-text);
+  padding-block: var(--sp-2);
+  transition: color var(--dur-base) var(--ease-out);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 2px;
+  border-radius: var(--r-pill);
+  background-color: var(--c-sprout);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav__link:hover { color: var(--clr-primary); }
+.nav__link:hover::after,
+.nav__link[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+.nav__link[aria-current="page"] { color: var(--clr-primary); }
+
+/* Mobile toggle */
+.nav-toggle {
+  display: none;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--r-circle);
+  border: 1.5px solid var(--clr-border-warm);
+  background-color: var(--c-paper-warm);
+  flex: none;
+}
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  inline-size: 1.125rem;
+  block-size: 2px;
+  border-radius: var(--r-pill);
+  background-color: var(--clr-primary);
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+.nav-toggle__bars { position: relative; }
+.nav-toggle__bars::before,
+.nav-toggle__bars::after { content: ""; position: absolute; inset-inline-start: 0; }
+.nav-toggle__bars::before { inset-block-start: -6px; }
+.nav-toggle__bars::after  { inset-block-start: 6px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars { background-color: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 75rem) {
+  .nav-toggle { display: grid; }
+  .nav {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    block-size: 100dvh;
+    inline-size: min(22rem, 84vw);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--sp-7);
+    padding: var(--sp-9) var(--sp-7);
+    background-color: var(--c-paper-warm);
+    border-start-start-radius: var(--r-2xl);
+    border-end-start-radius: var(--r-2xl);
+    box-shadow: var(--sh-xl);
+    transform: translateX(105%);
+    transition: transform var(--dur-slow) var(--ease-out);
+    overflow-y: auto;
+  }
+  .nav.is-open { transform: translateX(0); }
+  .nav__list { flex-direction: column; align-items: flex-start; gap: var(--sp-5); }
+  .nav__link { font-size: var(--fs-lg); font-family: var(--font-display); text-transform: lowercase; }
+  .nav__cta { inline-size: 100%; }
+}
+
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background-color: var(--a-bark-42);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-slow) var(--ease-out), visibility var(--dur-slow);
+}
+.nav-scrim.is-open { opacity: 1; visibility: visible; }
+@media (min-width: 75.0625rem) { .nav-scrim { display: none; } }
+
+/* --------------------------------------------------------------------------
+   CARD — generic warm surface card
+   -------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  padding: var(--sp-6);
+  border-radius: var(--r-xl);
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out),
+    border-color var(--dur-slow) var(--ease-out);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-lg);
+  border-color: var(--c-clay-light);
+}
+.card__title { margin-bottom: var(--sp-3); }
+.card__text { color: var(--clr-text-muted); font-size: var(--fs-sm); }
+
+/* Hand-drawn line icon bubble */
+.icon-bubble {
+  display: grid;
+  place-items: center;
+  inline-size: 3.25rem;
+  block-size: 3.25rem;
+  margin-bottom: var(--sp-5);
+  border-radius: var(--r-blob-a);
+  background-color: var(--c-sand-pale);
+  color: var(--clr-primary);
+  transition: border-radius var(--dur-slow) var(--ease-soft), background-color var(--dur-base) var(--ease-out);
+}
+.card:hover .icon-bubble { border-radius: var(--r-blob-b); background-color: var(--c-sprout-pale); }
+.icon-bubble svg { inline-size: 1.6rem; block-size: 1.6rem; }
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+  position: relative;
+  background-color: var(--clr-bg-inverse);
+  color: var(--clr-text-inverse);
+  padding-block: var(--sp-11) var(--sp-6);
+  overflow: hidden;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr;
+  gap: var(--sp-9) var(--sp-7);
+  padding-block-end: var(--sp-8);
+}
+@media (max-width: 60rem) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 38rem) { .footer__grid { grid-template-columns: 1fr; gap: var(--sp-7); } }
+
+.footer .logo__slot {
+  border-color: var(--c-sprout);
+  background-color: var(--a-paper-06);
+  color: var(--c-sprout);
+}
+.footer .logo__name { color: var(--clr-text-inverse); }
+.footer .logo__tagline { color: var(--clr-text-inverse-mut); }
+
+.footer__blurb {
+  margin-block-start: var(--sp-5);
+  color: var(--clr-text-inverse-mut);
+  font-size: var(--fs-sm);
+  max-width: 34ch;
+}
+.footer__heading {
+  font-family: var(--font-body);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--c-sprout);
+  margin-bottom: var(--sp-5);
+}
+.footer__list { display: grid; gap: var(--sp-3); }
+.footer__list a,
+.footer__contact a {
+  color: var(--clr-text-inverse-mut);
+  font-size: var(--fs-sm);
+  transition: color var(--dur-base) var(--ease-out);
+}
+.footer__list a:hover,
+.footer__contact a:hover { color: var(--c-sprout); }
+
+.footer__contact { display: grid; gap: var(--sp-4); font-size: var(--fs-sm); }
+.footer__contact dt {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-sprout);
+}
+.footer__contact dd { margin: 0; color: var(--clr-text-inverse-mut); }
+
+.footer__social { display: flex; gap: var(--sp-3); margin-block-start: var(--sp-6); }
+.footer__social a {
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--r-circle);
+  border: 1px solid var(--clr-border-inverse);
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.footer__social a:hover { background-color: var(--c-forest-soft); border-color: var(--c-sprout); }
+.footer__social svg { inline-size: 1.1rem; block-size: 1.1rem; }
+
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block-start: var(--sp-6);
+  border-block-start: 1px solid var(--clr-border-inverse);
+  font-size: var(--fs-2xs);
+  color: var(--clr-text-inverse-mut);
+}
+
+/* --------------------------------------------------------------------------
+   PLACEHOLDER — visible marker for details still to be supplied
+   -------------------------------------------------------------------------- */
+.placeholder {
+  border-block-end: 1.5px dashed currentColor;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* Floating WhatsApp action, mobile-first primary conversion */
+.float-wa {
+  position: fixed;
+  inset-block-end: var(--sp-5);
+  inset-inline-end: var(--sp-5);
+  z-index: var(--z-sticky);
+  display: grid;
+  place-items: center;
+  inline-size: 3.5rem;
+  block-size: 3.5rem;
+  border-radius: var(--r-circle);
+  background-color: var(--c-leaf);
+  color: var(--clr-text-inverse);
+  box-shadow: var(--sh-lg);
+  transition: transform var(--dur-base) var(--ease-back), background-color var(--dur-base) var(--ease-out);
+}
+.float-wa:hover { transform: scale(1.08); background-color: var(--c-forest); }
+.float-wa svg { inline-size: 1.75rem; block-size: 1.75rem; }

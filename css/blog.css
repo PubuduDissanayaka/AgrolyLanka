@@ -1,0 +1,387 @@
+/* ==========================================================================
+   Agroly Lanka — Blog
+   Loaded only by blog.html and the article pages, so the other seven pages
+   do not pay for it. Tokens only, no raw values.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SHARED — post meta line (date · category · reading time)
+   -------------------------------------------------------------------------- */
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.post-meta > * + *::before {
+  content: "·";
+  margin-inline-end: var(--sp-3);
+  color: var(--c-clay);
+}
+.post-meta__cat { color: var(--clr-accent-text); }
+.post-meta--inverse { color: var(--clr-text-inverse-mut); }
+.post-meta--inverse .post-meta__cat { color: var(--c-sprout-pale); }
+.post-meta--inverse > * + *::before { color: var(--c-sprout); }
+
+/* ==========================================================================
+   ARCHIVE — 1. Lead post
+   The most recent article, given a full-width two-column treatment so the
+   grid below reads as "more" rather than "the same again".
+   ========================================================================== */
+.lead-post {
+  position: relative;
+  background-color: var(--clr-bg);
+  padding-block: var(--sp-section-tight);
+  overflow: hidden;
+}
+.lead-post__inner {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(var(--sp-6), 4vw, var(--sp-9));
+  align-items: center;
+  padding: clamp(var(--sp-5), 3vw, var(--sp-7));
+  border-radius: var(--r-2xl);
+  background-color: var(--c-sand-pale);
+  border: 1px solid var(--clr-border-warm);
+  transition: box-shadow var(--dur-slow) var(--ease-out), border-color var(--dur-slow) var(--ease-out);
+}
+.lead-post__inner:hover { box-shadow: var(--sh-lg); border-color: var(--c-clay); }
+@media (max-width: 62rem) { .lead-post__inner { grid-template-columns: 1fr; } }
+
+.lead-post__media {
+  border-radius: var(--r-arch-soft);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--sh-md);
+}
+.lead-post__media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-drift) var(--ease-soft);
+}
+.lead-post__inner:hover .lead-post__media img { transform: scale(1.04); }
+
+.lead-post__flag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: var(--sp-1) var(--sp-4);
+  margin-block-end: var(--sp-4);
+  border-radius: var(--r-pill);
+  background-color: var(--clr-primary);
+  color: var(--clr-text-inverse);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+.lead-post__title { font-size: var(--fs-2xl); font-weight: var(--fw-medium); margin-block: var(--sp-4) var(--sp-4); }
+.lead-post__title a { color: inherit; }
+.lead-post__title a:hover { color: var(--clr-primary); }
+.lead-post__excerpt { color: var(--clr-text-muted); max-width: 52ch; margin-block-end: var(--sp-6); }
+
+/* ==========================================================================
+   ARCHIVE — 2. Post grid
+   ========================================================================== */
+.archive {
+  position: relative;
+  background-color: var(--clr-bg);
+  padding-block: var(--sp-section-tight) var(--sp-section);
+  overflow: hidden;
+}
+.archive__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-7);
+  padding-block-end: var(--sp-5);
+  border-block-end: 2px solid var(--c-clay);
+}
+.archive__count { font-size: var(--fs-sm); color: var(--clr-text-muted); }
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(var(--sp-5), 3vw, var(--sp-7));
+}
+@media (max-width: 68rem) { .post-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 44rem) { .post-grid { grid-template-columns: 1fr; } }
+
+.post-card { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+.post-card__media {
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background-color: var(--c-sand-pale);
+}
+/* Rotate the corner shape so a row of cards is never identical */
+.post-card:nth-child(3n + 1) .post-card__media { border-radius: var(--r-arch-soft); }
+.post-card:nth-child(3n + 2) .post-card__media { border-radius: var(--r-2xl) var(--r-lg) var(--r-2xl) var(--r-lg); }
+.post-card:nth-child(3n + 3) .post-card__media { border-radius: var(--r-lg) var(--r-2xl) var(--r-lg) var(--r-2xl); }
+
+.post-card__media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-drift) var(--ease-soft);
+}
+.post-card:hover .post-card__media img { transform: scale(1.05); }
+
+.post-card__title { font-size: var(--fs-lg); }
+.post-card__title a { color: inherit; }
+/* Whole card clickable, but only the title is a real link */
+.post-card__title a::after { content: ""; position: absolute; inset: 0; }
+.post-card { position: relative; }
+.post-card:hover .post-card__title a { color: var(--clr-primary); }
+.post-card__excerpt { font-size: var(--fs-sm); color: var(--clr-text-muted); }
+
+/* ==========================================================================
+   ARCHIVE — 3. Pagination
+   ========================================================================== */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-9);
+}
+.pager__link,
+.pager__current {
+  display: grid;
+  place-items: center;
+  min-inline-size: 2.75rem;
+  block-size: 2.75rem;
+  padding-inline: var(--sp-4);
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--clr-border-warm);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text);
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.pager__link:hover { background-color: var(--c-sand-pale); border-color: var(--c-clay); }
+.pager__current {
+  background-color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: var(--clr-text-inverse);
+}
+.pager__link[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.pager svg { inline-size: 1.05rem; block-size: 1.05rem; }
+
+/* ==========================================================================
+   ARTICLE — header
+   ========================================================================== */
+.post-hero {
+  position: relative;
+  padding-block: calc(var(--sp-12) + var(--sp-2)) 0;
+  background-color: var(--c-paper-warm);
+  overflow: hidden;
+}
+.post-hero__wash { inline-size: 28rem; block-size: 28rem; inset-block-start: -12rem; inset-inline-end: -10rem; }
+.post-hero__inner {
+  position: relative;
+  z-index: var(--z-raised);
+  max-width: 46rem;
+  padding-block-end: var(--sp-8);
+}
+.post-hero__title {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-light);
+  margin-block: var(--sp-4);
+}
+.post-hero__standfirst {
+  font-size: var(--fs-md);
+  color: var(--clr-text-muted);
+  max-width: 56ch;
+}
+.post-hero__figure {
+  position: relative;
+  block-size: clamp(14rem, 32vw, 26rem);
+  border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+  overflow: hidden;
+}
+.post-hero__figure img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* ==========================================================================
+   ARTICLE — body typography
+   `.prose` styles whatever HTML the article contains, so writers can use
+   plain headings, lists and quotes without reaching for extra classes.
+   ========================================================================== */
+.article {
+  position: relative;
+  background-color: var(--clr-bg);
+  padding-block: var(--sp-section-tight) var(--sp-section);
+  /* `hidden` would make this a scroll container and silently kill the
+     position:sticky child. `clip` contains the same overflow without
+     that side effect; the hidden line above is the fallback. */
+  overflow: hidden;
+  overflow: clip;
+}
+.article__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16rem;
+  gap: clamp(var(--sp-7), 5vw, var(--sp-10));
+  align-items: start;
+  max-width: 66rem;
+  margin-inline: auto;
+}
+@media (max-width: 62rem) { .article__grid { grid-template-columns: 1fr; } }
+
+.prose { max-width: 68ch; color: var(--clr-text); }
+.prose > * + * { margin-block-start: var(--sp-5); }
+
+.prose p { font-size: var(--fs-base); line-height: var(--lh-relaxed); }
+.prose__lead {
+  font-size: var(--fs-md);
+  color: var(--clr-text);
+  font-weight: var(--fw-medium);
+}
+
+.prose h2 {
+  font-size: var(--fs-xl);
+  margin-block-start: var(--sp-9);
+  margin-block-end: var(--sp-4);
+}
+.prose h3 {
+  font-size: var(--fs-lg);
+  margin-block-start: var(--sp-7);
+  margin-block-end: var(--sp-3);
+}
+.prose h2 + p,
+.prose h3 + p { margin-block-start: 0; }
+
+.prose a {
+  color: var(--clr-accent-text);
+  font-weight: var(--fw-semibold);
+  background-image: linear-gradient(90deg, currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1.5px;
+  transition: background-size var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.prose a:hover { background-size: 100% 3px; color: var(--clr-primary); }
+
+.prose ul,
+.prose ol { display: grid; gap: var(--sp-3); padding-inline-start: var(--sp-6); }
+.prose ul li { list-style: none; position: relative; }
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--sp-6) * -1);
+  inset-block-start: 0.72em;
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border-radius: var(--r-circle);
+  background-color: var(--c-sprout);
+}
+.prose ol { list-style: decimal; }
+.prose ol li::marker { color: var(--clr-accent-text); font-weight: var(--fw-bold); }
+.prose li { font-size: var(--fs-base); line-height: var(--lh-body); }
+
+.prose blockquote {
+  margin-block: var(--sp-7);
+  padding-inline-start: var(--sp-6);
+  border-inline-start: 2px solid var(--c-clay);
+  font-family: var(--font-display);
+  font-variation-settings: var(--font-display-soft);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--clr-primary);
+}
+
+.prose figure { margin-block: var(--sp-7); }
+.prose figure img { inline-size: 100%; border-radius: var(--r-lg); }
+.prose figcaption {
+  margin-block-start: var(--sp-3);
+  font-size: var(--fs-2xs);
+  color: var(--clr-text-muted);
+  font-style: italic;
+}
+
+.prose hr {
+  margin-block: var(--sp-8);
+  border: 0;
+  block-size: 1px;
+  background: linear-gradient(90deg, var(--c-clay), transparent);
+}
+
+.prose strong { font-weight: var(--fw-bold); }
+
+/* Callout for a practical aside */
+.prose .note {
+  padding: var(--sp-5) var(--sp-6);
+  border-radius: var(--r-lg);
+  background-color: var(--c-sand-pale);
+  border: 1px solid var(--clr-border-warm);
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+}
+.prose .note strong { display: block; margin-block-end: var(--sp-2); }
+
+/* --------------------------------------------------------------------------
+   ARTICLE — sidebar
+   -------------------------------------------------------------------------- */
+.article__aside { position: sticky; top: var(--sp-11); display: grid; gap: var(--sp-6); }
+@media (max-width: 62rem) { .article__aside { position: static; } }
+
+.aside-block {
+  padding: var(--sp-6);
+  border-radius: var(--r-xl);
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+}
+.aside-block h2 {
+  font-family: var(--font-body);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--clr-accent-text);
+  margin-block-end: var(--sp-4);
+}
+.aside-block p { font-size: var(--fs-sm); color: var(--clr-text-muted); margin-block-end: var(--sp-5); }
+
+/* Share row */
+.share { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.share a {
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--r-circle);
+  border: 1px solid var(--clr-border-warm);
+  color: var(--clr-primary);
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.share a:hover { background-color: var(--c-sand-pale); border-color: var(--c-clay); }
+.share svg { inline-size: 1.05rem; block-size: 1.05rem; }
+
+/* ==========================================================================
+   ARTICLE — related posts
+   ========================================================================== */
+.related {
+  position: relative;
+  background-color: var(--c-sand-light);
+  padding-block: var(--sp-section-tight);
+  overflow: hidden;
+}
+.related__head { margin-block-end: var(--sp-7); }
+.share a.is-copied { background-color: var(--c-sprout-pale); border-color: var(--c-sprout); }
+
+/* Reading time is injected by JS; hidden until it has a real value so it
+   never renders as an empty separator. */
+#readingTime[hidden] { display: none; }

@@ -1,0 +1,239 @@
+/* ==========================================================================
+   Agroly Lanka — Design Tokens
+   Single source of truth. Never hard-code a value elsewhere; use a token.
+   ========================================================================== */
+
+:root {
+  /* ----------------------------------------------------------------------
+     1. COLOUR — brand
+     Supplied brand palette. Names describe the material, not the usage.
+     ---------------------------------------------------------------------- */
+  --c-forest:        #1B5E3C;  /* brand deep green  */
+  --c-leaf:          #4F8A4C;  /* brand mid green   */
+  --c-sprout:        #8DBF5A;  /* brand bright green*/
+  --c-clay:          #B88A55;  /* brand clay / coir */
+  --c-sand:          #E8D8B8;  /* brand warm sand   */
+  --c-bark:          #1F2923;  /* brand near-black  */
+  --c-paper:         #F7F8F3;  /* brand off-white   */
+
+  /* 1b. COLOUR — derived tints & shades
+     Extended from the brand seven so nothing needs pure black or white. */
+  --c-forest-deep:   #0E3320;
+  --c-forest-dark:   #144A2F;
+  --c-forest-soft:   #2F7350;
+  --c-leaf-soft:     #6DA167;
+  --c-sprout-pale:   #C2DDA0;
+  /* Carries eyebrows, links and numerals. Must clear 4.5:1 on the *sand*
+     surfaces too, not just paper — #8A6234 only reached 4.37 on sand. */
+  --c-clay-dark:     #825B2F;
+  --c-clay-mid:      #A5764A;
+  --c-clay-light:    #D3AC7E;
+  --c-sand-light:    #F1E6CE;
+  --c-sand-pale:     #F6EFE0;
+  --c-paper-warm:    #FBF8F1;
+  --c-paper-dim:     #EDEFE6;
+  --c-bark-soft:     #3C4740;
+  --c-bark-mute:     #5A665D;
+  /* Form validation. A burnt clay rather than a pure red, so warnings still
+     belong to the palette. Reaches 6.1:1 on the raised form surface. */
+  --c-error:         #9A3412;
+
+  /* 1b-ii. COLOUR — alpha variants
+     Written as explicit rgba so they work everywhere, but each one is derived
+     from a brand colour above. Change the brand colour, change these too. */
+  --a-paper-06:    rgba(247, 248, 243, 0.06);  /* from --c-paper  */
+  --a-paper-10:    rgba(247, 248, 243, 0.10);
+  --a-paper-22:    rgba(247, 248, 243, 0.22);
+  --a-paper-glass: rgba(251, 248, 241, 0.90);  /* from --c-paper-warm */
+  --a-bark-42:     rgba(31, 41, 35, 0.42);     /* from --c-bark   */
+  --a-forest-12:   rgba(14, 51, 32, 0.12);     /* from --c-forest-deep */
+  --a-forest-42:   rgba(14, 51, 32, 0.42);
+  --a-forest-58:   rgba(14, 51, 32, 0.58);
+  --a-forest-88:   rgba(14, 51, 32, 0.88);
+  --a-forest-90:   rgba(14, 51, 32, 0.90);
+  --a-forest-92:   rgba(14, 51, 32, 0.92);
+  --a-green-78:    rgba(27, 94, 60, 0.78);     /* from --c-forest */
+  --a-sprout-16:   rgba(141, 191, 90, 0.16);   /* from --c-sprout */
+  --a-error-14:    rgba(154, 52, 18, 0.14);    /* from --c-error  */
+
+  /* 1c. COLOUR — semantic roles
+     Components reference these, so a re-skin only touches this block. */
+  --clr-bg:              var(--c-paper);
+  --clr-bg-warm:         var(--c-paper-warm);
+  --clr-bg-sand:         var(--c-sand-pale);
+  --clr-bg-inverse:      var(--c-forest-deep);
+  --clr-surface:         var(--c-paper-warm);
+  --clr-surface-raised:  #FFFDF8;
+  --clr-surface-sunken:  var(--c-paper-dim);
+
+  --clr-text:            var(--c-bark);
+  --clr-text-muted:      var(--c-bark-mute);
+  --clr-text-inverse:    var(--c-paper);
+  --clr-text-inverse-mut:#CBD8C9;
+  --clr-accent-text:     var(--c-clay-dark);
+
+  --clr-primary:         var(--c-forest);
+  --clr-primary-hover:   var(--c-forest-dark);
+  --clr-secondary:       var(--c-clay);
+  --clr-highlight:       var(--c-sprout);
+
+  --clr-border:          #DCDFD2;
+  --clr-border-warm:     #E2D3B4;
+  --clr-border-inverse:  rgba(247, 248, 243, 0.22);
+
+  --clr-focus:           var(--c-sprout);
+  --clr-error:           var(--c-error);
+
+  /* ----------------------------------------------------------------------
+     2. TYPOGRAPHY
+     ---------------------------------------------------------------------- */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body:    "Nunito Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fw-light:     300;
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+
+  /* Fluid scale — min at 360px viewport, max at 1400px */
+  --fs-2xs:   0.75rem;                                  /* 12px  labels     */
+  --fs-xs:    0.8125rem;                                /* 13px  eyebrow    */
+  --fs-sm:    0.9375rem;                                /* 15px  small body */
+  --fs-base:  clamp(1rem, 0.97rem + 0.14vw, 1.0625rem); /* body             */
+  --fs-md:    clamp(1.0625rem, 1rem + 0.28vw, 1.1875rem);
+  --fs-lg:    clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --fs-xl:    clamp(1.5rem, 1.32rem + 0.8vw, 2rem);
+  --fs-2xl:   clamp(1.875rem, 1.55rem + 1.45vw, 2.75rem);
+  --fs-3xl:   clamp(2.25rem, 1.75rem + 2.2vw, 3.5rem);
+  --fs-4xl:   clamp(2.75rem, 1.9rem + 3.8vw, 5rem);
+  /* Min must let the longest unbreakable hero word fit a 360px viewport */
+  --fs-5xl:   clamp(2.75rem, 1.6rem + 5vw, 6.5rem);
+
+  --lh-tight:   1.06;
+  --lh-snug:    1.18;
+  --lh-heading: 1.12;
+  --lh-body:    1.72;
+  --lh-relaxed: 1.85;
+
+  --ls-tight:   -0.02em;
+  --ls-normal:  0;
+  --ls-wide:    0.06em;
+  --ls-wider:   0.16em;
+
+  /* Fraunces variable axes — soft, warm optical settings */
+  --font-display-soft: "SOFT" 22, "WONK" 1;
+
+  /* ----------------------------------------------------------------------
+     3. SPACING — 4px base, named by step
+     ---------------------------------------------------------------------- */
+  --sp-1:   0.25rem;
+  --sp-2:   0.5rem;
+  --sp-3:   0.75rem;
+  --sp-4:   1rem;
+  --sp-5:   1.5rem;
+  --sp-6:   2rem;
+  --sp-7:   2.5rem;
+  --sp-8:   3rem;
+  --sp-9:   4rem;
+  --sp-10:  5rem;
+  --sp-11:  6.5rem;
+  --sp-12:  8rem;
+
+  /* Fluid rhythm */
+  --sp-section:      clamp(4.5rem, 3rem + 6.5vw, 9rem);
+  --sp-section-tight:clamp(3rem, 2rem + 4vw, 6rem);
+  --sp-gutter:       clamp(1.25rem, 0.9rem + 1.6vw, 2.5rem);
+  --sp-stack:        clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
+
+  /* ----------------------------------------------------------------------
+     4. LAYOUT
+     ---------------------------------------------------------------------- */
+  --w-page:     1280px;
+  --w-wide:     1480px;
+  --w-content:  980px;
+  --w-prose:    62ch;
+  --w-narrow:   46ch;
+
+  /* ----------------------------------------------------------------------
+     5. RADII — organic. Nothing sharp.
+     ---------------------------------------------------------------------- */
+  --r-xs:    0.375rem;
+  --r-sm:    0.625rem;
+  --r-md:    1rem;
+  --r-lg:    1.5rem;
+  --r-xl:    2.25rem;
+  --r-2xl:   3rem;
+  --r-pill:  999px;
+  --r-circle:50%;
+
+  /* Signature organic shapes */
+  --r-arch:      12rem 12rem var(--r-lg) var(--r-lg) / 14rem 14rem var(--r-lg) var(--r-lg);
+  --r-arch-soft: 8rem 8rem var(--r-lg) var(--r-lg) / 9rem 9rem var(--r-lg) var(--r-lg);
+  --r-blob-a:    62% 38% 46% 54% / 54% 44% 56% 46%;
+  --r-blob-b:    38% 62% 58% 42% / 46% 58% 42% 54%;
+  --r-leaf:      var(--r-2xl) var(--r-xs) var(--r-2xl) var(--r-xs);
+
+  /* ----------------------------------------------------------------------
+     6. ELEVATION — warm-tinted, never neutral grey
+     ---------------------------------------------------------------------- */
+  --sh-xs:  0 1px 2px rgba(31, 41, 35, 0.05);
+  --sh-sm:  0 2px 8px rgba(31, 41, 35, 0.06);
+  --sh-md:  0 8px 24px -8px rgba(31, 41, 35, 0.13);
+  --sh-lg:  0 20px 48px -16px rgba(31, 41, 35, 0.18);
+  --sh-xl:  0 32px 72px -24px rgba(31, 41, 35, 0.24);
+  --sh-warm:0 18px 44px -18px rgba(138, 98, 52, 0.34);
+  --sh-ring:0 0 0 1px var(--clr-border);
+
+  /* ----------------------------------------------------------------------
+     7. MOTION — gentle and slow
+     ---------------------------------------------------------------------- */
+  --ease-out:   cubic-bezier(0.22, 0.68, 0.32, 1);
+  --ease-soft:  cubic-bezier(0.44, 0.12, 0.16, 1);
+  --ease-back:  cubic-bezier(0.34, 1.3, 0.5, 1);
+
+  --dur-fast:   180ms;
+  --dur-base:   320ms;
+  --dur-slow:   620ms;
+  --dur-slower: 980ms;
+  --dur-drift:  1600ms;
+
+  /* ----------------------------------------------------------------------
+     8. TEXTURE — paper grain & coir fibre
+     Pre-rendered seamless 128px raster tiles. These were SVG feTurbulence
+     filters, but tiling a live filter across full-height sections under
+     mix-blend-mode forces software rasterisation and stalls the compositor.
+     Raster tiles give the same grain for ~21 KB and no paint cost.
+     ---------------------------------------------------------------------- */
+  --tex-grain: url("../assets/images/texture-grain.png");
+  --tex-fibre: url("../assets/images/texture-fibre.png");
+  --tex-size:  128px 128px;
+
+  /* Kept low: the grain should be felt, not seen. Multiply at higher values
+     drags the warm cream toward grey and flattens the palette. */
+  --grain-opacity:      0.10;
+  --grain-opacity-dark: 0.06;
+
+  /* ----------------------------------------------------------------------
+     9. Z-INDEX
+     ---------------------------------------------------------------------- */
+  --z-below:    -1;
+  --z-base:      1;
+  --z-raised:    10;
+  /* Wave dividers must clear section content — some sections are built from
+     opaque full-bleed halves that would otherwise paint over the curve.
+     Safe to sit on top because waves are always pointer-events: none. */
+  --z-wave:      20;
+  --z-sticky:    100;
+  --z-header:    200;
+  --z-overlay:   300;
+  --z-modal:     400;
+}
+
+/* Narrow screens: pull the signature arch in so it stays a shape, not a dome */
+@media (max-width: 34rem) {
+  :root {
+    --r-arch:      7rem 7rem var(--r-md) var(--r-md) / 8rem 8rem var(--r-md) var(--r-md);
+    --r-arch-soft: 5rem 5rem var(--r-md) var(--r-md) / 6rem 6rem var(--r-md) var(--r-md);
+  }
+}
